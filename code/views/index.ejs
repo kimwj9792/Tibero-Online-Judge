@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>DBDB</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <table class="table tabel-hover">
+    <thead>
+      <tr>
+        <th scope="row">EMP ID</th>
+        <th>Frist Name</th>
+        <th>Last Name</th>
+        <th>Salary</th>
+        <th>Hire Date</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% for(var i=0; i< rows.length; i++) { %>
+        <tr>
+          <td>
+            <%= rows[i].EMPLOYEE_ID %>
+          </td>
+          <td>
+            <%= rows[i].FIRST_NAME %>
+          </td>
+          <td>
+            <%= rows[i].LAST_NAME %>
+          </td>
+          <td>
+            <%= rows[i].SALARY %>
+          </td>
+          <td>
+            <%= rows[i].HIRE_DATE %>
+          </td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+</body>
+
 </html>
