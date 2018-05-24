@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Navbar Sidebar - Fixed to Left or Right</title>
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="navbar-fixed-right.min.css">
+  <link rel="stylesheet" href="/stylesheets/leftbar.min.css">
+  <link rel="stylesheet" href="/stylesheets/docs.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/javascripts/docs.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-left">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">TIBERO </br> Online Judge</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          </br>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>문제</strong> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><strong>문제 만들기</strong></a></li>
+              <li><a href="#">문제 보기</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">대회 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">대회 만들기</a></li>
+              <li><a href="#">대회 참가</a></li>
+              <li><a href="#">참가한 대회</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">사용자 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">내 정보 보기</a></li>
+              <li><a href="#">라이벌</a></li>
+              <li><a href="#">랭킹</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="jumbotron" align="center">
+      <h3>
+        문제 보기
+      </h3>
+      </br>
+      <table class="table table-hover">
+         <thead>
+            <th>#</th>
+            <th>문제 이름</th>
+            <th>정답</th>
+            <th>제출</th>
+            <th>정답률</th>
+         </thead>
+         <tr class='clickable-row' data-href='https://naver.com'>
+            <td>1</td>
+            <td>A+B</td>
+            <td>5</td>
+            <td>8</td>
+            <td>62.50%</td>
+         </tr>
+         <tr>
+            <td>2</td>
+            <td>지구 탐방</td>
+            <td>3</td>
+            <td>10</td>
+            <td>30.00%</td>
+         </tr>
+         <tr>
+            <td>3</td>
+            <td>세준이의 여행</td>
+            <td>4</td>
+            <td>5</td>
+            <td>80.00%</td>
+         </tr>
+      </table>
+    </div>
+
+    <footer>
+      <div align="right">ⓒ 2018-1 Database Project Team Tibero</div>
+    </footer>
+
+  </div>
+
+</body>
+
+</html>
+
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>

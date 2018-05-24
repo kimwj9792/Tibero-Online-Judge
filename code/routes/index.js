@@ -59,7 +59,13 @@ router.post('/submit', function(req, res, next) {
   });
 });
 
-router.get('/getSubmission', function(req, res, next){
-
+router.get('/start', function(req, res, next){
+  res.render('start');
+})
+router.get('/makeProblem', function(req, res, next){
+  res.render('makeProblem');
+})
+router.get('/viewProblem', function(req, res, next){
+  res.render('viewProblem');
 })
 module.exports = router;
