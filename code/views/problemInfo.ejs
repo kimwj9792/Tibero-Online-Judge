@@ -8,13 +8,11 @@
   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="navbar-fixed-right.min.css">
   <link rel="stylesheet" href="/stylesheets/leftbar.min.css">
-  <link rel="stylesheet" href="/stylesheets/docs.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/javascripts/docs.js"></script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </head>
 
 <body>
@@ -63,45 +61,38 @@
 
   <div class="container">
 
-    <div class="jumbotron" align="center">
+    <div class="jumbotron">
       <h3>
-        문제 보기
-      </h3>
+      <%= rows[0].PROBLEMID %>. <%= rows[0].PROBLEMNAME %>
+    </h3>
       </br>
-      <table class="table table-hover">
-         <thead>
-            <th>#</th>
-            <th>문제 이름</th>
-            <th>정답</th>
-            <th>제출</th>
-            <th>정답률</th>
-         </thead>
-         <% for (var i=0; i<rows.length; i++){ %>
-         <tr class='clickable-row' data-href='/viewProblem/<%= rows[i].PROBLEMID %>'>
-            <td><%= rows[i].PROBLEMID %></td>
-            <td><%= rows[i].PROBLEMNAME %></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0.00%</td>
-         </tr>
-         <% } %>
-      </table>
-    </div>
 
+      <div class="col-sm-5" id="comment">
+        <%= rows[0].PROBLEMEXPLAIN %>
+        </br>
+      </br> <strong>예시 입력:</strong> </br><%= rows[0].SAMPLEINPUTTEXT %></br>
+    </br> <strong>예시 출력:</strong> </br><%= rows[0].SAMPLEOUTPUTTEXT %>
+      </div>
+
+      <div class="col-sm-1" id="comment">
+
+      </div>
+      <form class="form-horizontal" action="/submit/<%= rows[0].PROBLEMID %>" method="post">
+        <div class="form-group">
+          <div class="col-sm-6">
+            <textarea class="form-control" rows = "13" name="code" spellcheck="false" placeholder="여기에 코드를 입력하세요." style = "font-family: consolas;"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-default pull-right">제출</button>
+      </form>
+    </div>
     <footer>
       <div align="right">ⓒ 2018-1 Database Project Team Tibero</div>
     </footer>
-
+  </div>
   </div>
 
 </body>
 
 </html>
-
-<script>
-jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
-</script>

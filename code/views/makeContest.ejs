@@ -8,7 +8,6 @@
   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="navbar-fixed-right.min.css">
   <link rel="stylesheet" href="/stylesheets/leftbar.min.css">
   <link rel="stylesheet" href="/stylesheets/docs.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -28,7 +27,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/start">TIBERO </br> Online Judge</a>
+        <a class="navbar-brand" href="#">TIBERO </br> Online Judge</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -37,13 +36,13 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">문제 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/makeProblem">문제 만들기</a></li>
-              <li><a href="/viewProblem"><strong>문제 보기</strong></a></li>
+              <li><a href="/viewProblem">문제 보기</a></li>
             </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">대회 <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>대회</strong> <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="/makeContest">대회 만들기</a></li>
+              <li><a href="/makeContest"><strong>대회 만들기</strong></a></li>
               <li><a href="/viewContest">대회 참가</a></li>
               <li><a href="/myContest">참가한 대회</a></li>
             </ul>
@@ -65,27 +64,53 @@
 
     <div class="jumbotron" align="center">
       <h3>
-        문제 보기
+        대회 만들기
       </h3>
       </br>
-      <table class="table table-hover">
-         <thead>
-            <th>#</th>
-            <th>문제 이름</th>
-            <th>정답</th>
-            <th>제출</th>
-            <th>정답률</th>
-         </thead>
-         <% for (var i=0; i<rows.length; i++){ %>
-         <tr class='clickable-row' data-href='/viewProblem/<%= rows[i].PROBLEMID %>'>
-            <td><%= rows[i].PROBLEMID %></td>
-            <td><%= rows[i].PROBLEMNAME %></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0.00%</td>
-         </tr>
-         <% } %>
-      </table>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="contestName" class="col-sm-2 control-label">대회 이름</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="contestName" placeholder="대회 이름을 입력해주세요.">
+          </div>
+        </div>
+        </br>
+        <div class="form-group">
+          <label for="contestContent" class="col-sm-2 control-label">대회 설명</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" rows="3" id="contestContent" placeholder="대회에 대한 설명을 적어주세요."></textarea>
+          </div>
+        </div>
+        </br>
+        <div class="form-group">
+          <label for="contestMembers" class="col-sm-2 control-label">대회 참가자</label>
+          <div class="col-sm-4" id="the-basics">
+            <textarea class="form-control" rows="5" id="contestMembers" placeholder="대회 참가자들의 닉네임을 줄바꿈문자를 기준으로 적어주세요. (본인 포함)"></textarea>
+          </div>
+          <label for="contestProblems" class="col-sm-2 control-label">대회 문제</label>
+          <div class="col-sm-4">
+            <textarea class="form-control" rows="5" id="contestProblems" placeholder="대회 문제 번호를 줄바꿈문자를 기준으로 적어주세요."></textarea>
+          </div>
+        </div>
+        </br>
+
+        <div class="form-group">
+          <label for="startTime" class="col-sm-2 control-label">시작 시각</label>
+          <div class="col-sm-4">
+            <input type="datetime-local" class="form-control" id="startTime">
+          </div>
+          <label for="endTime" class="col-sm-2 control-label">종료 시각</label>
+          <div class="col-sm-4">
+            <input type="datetime-local" class="form-control" id="endTime">
+          </div>
+        </div>
+        </br>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-default pull-right">대회 만들기</button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <footer>
@@ -97,11 +122,3 @@
 </body>
 
 </html>
-
-<script>
-jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
-</script>

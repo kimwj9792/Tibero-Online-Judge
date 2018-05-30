@@ -37,7 +37,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">문제 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/makeProblem">문제 만들기</a></li>
-              <li><a href="/viewProblem"><strong>문제 보기</strong></a></li>
+              <li><a href="/viewProblem">문제 보기</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -53,7 +53,7 @@
             <ul class="dropdown-menu">
               <li><a href="#">내 정보 보기</a></li>
               <li><a href="#">라이벌</a></li>
-              <li><a href="/viewRanking">랭킹</a></li>
+              <li><a href="/viewRanking"><strong>랭킹</strong></a></li>
             </ul>
           </li>
         </ul>
@@ -65,26 +65,38 @@
 
     <div class="jumbotron" align="center">
       <h3>
-        문제 보기
+        랭킹
       </h3>
       </br>
       <table class="table table-hover">
          <thead>
             <th>#</th>
-            <th>문제 이름</th>
+            <th>닉네임</th>
             <th>정답</th>
             <th>제출</th>
             <th>정답률</th>
          </thead>
-         <% for (var i=0; i<rows.length; i++){ %>
-         <tr class='clickable-row' data-href='/viewProblem/<%= rows[i].PROBLEMID %>'>
-            <td><%= rows[i].PROBLEMID %></td>
-            <td><%= rows[i].PROBLEMNAME %></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0.00%</td>
+         <tr class='clickable-row' data-href='https://naver.com'>
+            <td>1</td>
+            <td>김우재</td>
+            <td>10</td>
+            <td>15</td>
+            <td>66.6666%</td>
          </tr>
-         <% } %>
+         <tr>
+           <td>2</td>
+           <td>오새준</td>
+           <td>4</td>
+           <td>10</td>
+           <td>40.0000%</td>
+         </tr>
+         <tr>
+           <td>3</td>
+           <td>김민규</td>
+           <td>1</td>
+           <td>5</td>
+           <td>20.0000%</td>
+         </tr>
       </table>
     </div>
 

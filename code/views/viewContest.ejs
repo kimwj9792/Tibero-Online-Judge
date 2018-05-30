@@ -37,14 +37,14 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">문제 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/makeProblem">문제 만들기</a></li>
-              <li><a href="/viewProblem"><strong>문제 보기</strong></a></li>
+              <li><a href="/viewProblem">문제 보기</a></li>
             </ul>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">대회 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/makeContest">대회 만들기</a></li>
-              <li><a href="/viewContest">대회 참가</a></li>
+              <li><a href="/viewContest"><strong>대회 참가</strong></a></li>
               <li><a href="/myContest">참가한 대회</a></li>
             </ul>
           </li>
@@ -65,26 +65,42 @@
 
     <div class="jumbotron" align="center">
       <h3>
-        문제 보기
+        대회 참가
       </h3>
       </br>
       <table class="table table-hover">
          <thead>
             <th>#</th>
-            <th>문제 이름</th>
-            <th>정답</th>
-            <th>제출</th>
-            <th>정답률</th>
+            <th>대회 이름</th>
+            <th>시작 시각</th>
+            <th>종료 시각</th>
+            <th>참가 인원</th>
+            <th>개최자</th>
          </thead>
-         <% for (var i=0; i<rows.length; i++){ %>
-         <tr class='clickable-row' data-href='/viewProblem/<%= rows[i].PROBLEMID %>'>
-            <td><%= rows[i].PROBLEMID %></td>
-            <td><%= rows[i].PROBLEMNAME %></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0.00%</td>
+         <tr class='clickable-row' data-href='https://naver.com'>
+            <td>1</td>
+            <td>우재의 DP 파티</td>
+            <td>2018-06-14 오후 3:00</td>
+            <td>2018-06-14 오후 5:00</td>
+            <td>3</td>
+            <td>김우재</td>
          </tr>
-         <% } %>
+         <tr>
+           <td>2</td>
+           <td>세준이의 메가버닝</td>
+           <td>2018-06-14 오후 7:00</td>
+           <td>2018-06-22 오후 7:00</td>
+           <td>1</td>
+           <td>오세준</td>
+         </tr>
+         <tr>
+           <td>3</td>
+           <td>민규의 알분 기말고사</td>
+           <td>2018-06-19 오후 1:00</td>
+           <td>2018-06-19 오후 3:00</td>
+           <td>70</td>
+           <td>김민규</td>
+         </tr>
       </table>
     </div>
 
