@@ -3,10 +3,10 @@ var request = require('request');
 var session = require('express-session');
 var router = express.Router();
 
-function to_minute(str){
-    var hour = str.substring(11, 13);
-    var min = str.substring(14, 16);
-    return parseInt(hour) * 60 + parseInt(min);
+function to_minute(str) {
+  var hour = str.substring(11, 13);
+  var min = str.substring(14, 16);
+  return parseInt(hour) * 60 + parseInt(min);
 }
 
 router.use(session({
@@ -224,16 +224,16 @@ router.post('/postContest', function(req, res, next) {
   var contestid = parseInt(contestidrow[0].CONTESTID);
   console.log(contestid);
 
-  var contestmembers=req.body.contestMembers;
-    var conMemSplit = contestmembers.split('\r\n');
-    for (var i in conMemSplit){
-      db.querySync("INSERT INTO contestjoiners VALUES("+contestid+", '"+String(conMemSplit[i])+"')");  // 쿼리에서 알맞은 위치에 추가
-    }
-    var contestproblems=req.body.contestProblems;
-      var conProbSplit = contestproblems.split('\r\n');
-      for (var i in conProbSplit){
-        db.querySync("INSERT INTO contestproblems VALUES("+contestid+", "+conProbSplit[i]+")");  // 쿼리에서 알맞은 위치에 추가
-      }
+  var contestmembers = req.body.contestMembers;
+  var conMemSplit = contestmembers.split('\r\n');
+  for (var i in conMemSplit) {
+    db.querySync("INSERT INTO contestjoiners VALUES(" + contestid + ", '" + String(conMemSplit[i]) + "')"); // 쿼리에서 알맞은 위치에 추가
+  }
+  var contestproblems = req.body.contestProblems;
+  var conProbSplit = contestproblems.split('\r\n');
+  for (var i in conProbSplit) {
+    db.querySync("INSERT INTO contestproblems VALUES(" + contestid + ", " + conProbSplit[i] + ")"); // 쿼리에서 알맞은 위치에 추가
+  }
   res.send('<script>alert("대회가 생성되었습니다!"); location.href = "/viewContest";</script>');
 });
 
@@ -242,7 +242,9 @@ router.get('/viewContest', function(req, res, next) {
     res.send('<script>alert("세션이 유효하지 않습니다. 로그인 해주세요."); location.href = "/";</script>');
   }
   var rows = db.querySync("SELECT contestid, title, explain, createrid, TO_CHAR(starttime, 'YYYY-MM-DD HH:MI') AS go, TO_CHAR(endtime, 'YYYY-MM-DD HH:MI') AS stop FROM contest");
-  res.render('viewContest', {rows:rows});
+  res.render('viewContest', {
+    rows: rows
+  });
 });
 router.get('/viewContest/:id', function(req, res, next) {
   if (String(req.session.userid) == 'undefined') {
@@ -252,58 +254,63 @@ router.get('/viewContest/:id', function(req, res, next) {
 
 
   db.beginTransactionSync();
-  var contestrows = db.querySync("SELECT contestid, title, explain, createrid, TO_CHAR(starttime, 'YYYY-MM-DD HH:MI') AS go, TO_CHAR(endtime, 'YYYY-MM-DD HH:MI') AS stop FROM contest WHERE contestid = "+req.params.id);
+  var contestrows = db.querySync("SELECT contestid, title, explain, createrid, TO_CHAR(starttime, 'YYYY-MM-DD HH:MI') AS go, TO_CHAR(endtime, 'YYYY-MM-DD HH:MI') AS stop FROM contest WHERE contestid = " + req.params.id);
   db.beginTransactionSync();
-  var joinersql = "SELECT contestjoinerid FROM contestjoiners WHERE contestid = "+ req.params.id + " ORDER BY contestjoinerid ASC";
+  var joinersql = "SELECT contestjoinerid FROM contestjoiners WHERE contestid = " + req.params.id + " ORDER BY contestjoinerid ASC";
   var joinerrows = db.querySync(joinersql);
   db.commitTransactionSync();
-  var problemsql = "SELECT problemid FROM contestproblems WHERE contestid = "+String(req.params.id)+ " ORDER BY problemid ASC";
+  var problemsql = "SELECT problemid FROM contestproblems WHERE contestid = " + String(req.params.id) + " ORDER BY problemid ASC";
   db.beginTransactionSync();
   var problemrows = db.querySync(problemsql);
   db.commitTransactionSync();
-  var problemnamesql = "SELECT problemname FROM problems WHERE problemid IN (SELECT problemid FROM contest WHERE contestid = "+req.params.id+") ORDER BY problemid ASC";
+  var problemnamesql = "SELECT problemname FROM problems WHERE problemid IN (SELECT problemid FROM contestproblems WHERE contestid = " + req.params.id + ") ORDER BY problemid ASC";
   db.beginTransactionSync();
   var problemnamerows = db.querySync(problemnamesql);
   db.commitTransactionSync();
-  var sql = "SELECT contestjoinerid, problemid, SUM(DECODE(result, 'CORRECT', 0, NVL2(result, 1, 0))) AS wrongcount, MIN(DECODE(result, 'CORRECT', submittime)) - (SELECT starttime FROM contest WHERE contestid = "+req.params.id+") AS timediff FROM ((SELECT * FROM (SELECT contestjoinerid FROM contestjoiners WHERE contestid = "+req.params.id+") u NATURAL JOIN (SELECT problemid FROM contestproblems WHERE contestid = "+req.params.id+") p) d LEFT OUTER JOIN (SELECT * FROM submit WHERE submittime BETWEEN (SELECT starttime FROM contest WHERE contestid = "+req.params.id+") AND (SELECT endtime FROM contest WHERE contestid = "+req.params.id+")) s ON (contestjoinerid = submituserid AND problemid = submitproblemid)) GROUP BY (contestjoinerid, problemid) ORDER BY contestjoinerid, problemid;";
+  var sql = "SELECT contestjoinerid, problemid, SUM(DECODE(result, 'CORRECT', 0, NVL2(result, 1, 0))) AS wrongcount, MIN(DECODE(result, 'CORRECT', submittime)) - (SELECT starttime FROM contest WHERE contestid = " + req.params.id + ") AS timediff FROM ((SELECT * FROM (SELECT contestjoinerid FROM contestjoiners WHERE contestid = " + req.params.id + ") u NATURAL JOIN (SELECT problemid FROM contestproblems WHERE contestid = " + req.params.id + ") p) d LEFT OUTER JOIN (SELECT * FROM submit WHERE submittime BETWEEN (SELECT starttime FROM contest WHERE contestid = " + req.params.id + ") AND (SELECT endtime FROM contest WHERE contestid = " + req.params.id + ")) s ON (contestjoinerid = submituserid AND problemid = submitproblemid)) GROUP BY (contestjoinerid, problemid) ORDER BY contestjoinerid, problemid;";
   db.beginTransactionSync();
   var rows = db.querySync(sql);
   db.commitTransactionSync();
 
 
   var penalty = 10;
-  for(var k = 0; k<joinerrows.length; k++){
+  for (var k = 0; k < joinerrows.length; k++) {
     joinerrows[k].PASSCOUNT = 0;
     joinerrows[k].TOTALPENALTY = 0;
   }
-  for(var i = 0; i < rows.length; i++) {
-    if(rows[i].TIMEDIFF != null)
-    {
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i].TIMEDIFF != null) {
       rows[i].TIMEDIFF = to_minute(rows[i].TIMEDIFF);
       rows[i].ACCEPT = true;
-      for(var j =0; j<joinerrows.length; j++){
-        if(rows[i].CONTESTJOINERID == joinerrows[j].CONTESTJOINERID){
+      for (var j = 0; j < joinerrows.length; j++) {
+        if (rows[i].CONTESTJOINERID == joinerrows[j].CONTESTJOINERID) {
           joinerrows[j].PASSCOUNT = joinerrows[j].PASSCOUNT + 1;
           joinerrows[j].TOTALPENALTY = joinerrows[j].TOTALPENALTY + rows[i].TIMEDIFF;
         }
       }
-    }
-    else
-    {
+    } else {
       rows[i].TIMEDIFF = 0;
       rows[i].ACCEPT = false;
     }
     rows[i].TIMEDIFF += rows[i].WRONGCOUNT * penalty;
 
   }
-  res.render('contestInfo', {contestrows:contestrows, rows:rows, joinerrows:joinerrows, problemrows:problemrows, problemnamerows:problemnamerows});
+  res.render('contestInfo', {
+    contestrows: contestrows,
+    rows: rows,
+    joinerrows: joinerrows,
+    problemrows: problemrows,
+    problemnamerows: problemnamerows
+  });
 });
 router.get('/myContest', function(req, res, next) {
   if (String(req.session.userid) == 'undefined') {
     res.send('<script>alert("세션이 유효하지 않습니다. 로그인 해주세요."); location.href = "/";</script>');
   }
-  var rows = db.querySync("SELECT contestid, title, explain, createrid, TO_CHAR(starttime, 'YYYY-MM-DD HH:MI') AS go, TO_CHAR(endtime, 'YYYY-MM-DD HH:MI') AS stop FROM contest WHERE contestid IN (SELECT contestid FROM contestjoiners WHERE contestjoinerid = '"+String(req.session.userid)+"')");
-  res.render('viewContest2', {rows:rows});
+  var rows = db.querySync("SELECT contestid, title, explain, createrid, TO_CHAR(starttime, 'YYYY-MM-DD HH:MI') AS go, TO_CHAR(endtime, 'YYYY-MM-DD HH:MI') AS stop FROM contest WHERE contestid IN (SELECT contestid FROM contestjoiners WHERE contestjoinerid = '" + String(req.session.userid) + "')");
+  res.render('viewContest2', {
+    rows: rows
+  });
 });
 router.get('/problemInfo', function(req, res, next) {
   if (String(req.session.userid) == 'undefined') {
@@ -327,7 +334,7 @@ router.get('/rival', function(req, res, next) {
   if (String(req.session.userid) == 'undefined') {
     res.send('<script>alert("세션이 유효하지 않습니다. 로그인 해주세요."); location.href = "/";</script>');
   }
-  var rows = db.querySync("SELECT * FROM usrs INNER JOIN (SELECT submituserid, (utl_match.edit_distance_similarity(original, other)-1) AS sim FROM (SELECT LISTAGG(submitproblemid, ',') WITHIN GROUP(ORDER BY submitproblemid) AS original FROM submit WHERE result = 'CORRECT' AND submituserid = '"+String(req.session.userid)+"' GROUP BY submituserid) NATURAL JOIN (SELECT submituserid, LISTAGG(submitproblemid, ',') WITHIN GROUP(ORDER BY submitproblemid) other FROM submit WHERE result = 'CORRECT' AND submituserid <> '"+String(req.session.userid)+"' GROUP BY submituserid)) ON userid = submituserid WHERE ROWNUM <= 5 ORDER BY sim DESC;");
+  var rows = db.querySync("SELECT * FROM usrs INNER JOIN (SELECT submituserid, (utl_match.edit_distance_similarity(original, other)-1) AS sim FROM (SELECT LISTAGG(submitproblemid, ',') WITHIN GROUP(ORDER BY submitproblemid) AS original FROM submit WHERE result = 'CORRECT' AND submituserid = '" + String(req.session.userid) + "' GROUP BY submituserid) NATURAL JOIN (SELECT submituserid, LISTAGG(submitproblemid, ',') WITHIN GROUP(ORDER BY submitproblemid) other FROM submit WHERE result = 'CORRECT' AND submituserid <> '" + String(req.session.userid) + "' GROUP BY submituserid)) ON userid = submituserid WHERE ROWNUM <= 5 ORDER BY sim DESC;");
 
   res.render('rival', {
     rows: rows
