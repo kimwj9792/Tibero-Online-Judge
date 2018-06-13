@@ -52,7 +52,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">사용자 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">내 정보 보기</a></li>
-              <li><a href="#">라이벌</a></li>
+              <li><a href="/rival">라이벌</a></li>
               <li><a href="/viewRanking"><strong>랭킹</strong></a></li>
             </ul>
           </li>
@@ -76,27 +76,15 @@
             <th>제출</th>
             <th>정답률</th>
          </thead>
+         <% for(var i =0; i< rows.length; i++){  %>
          <tr class='clickable-row' data-href='https://naver.com'>
-            <td>1</td>
-            <td>김우재</td>
-            <td>10</td>
-            <td>15</td>
-            <td>66.6666%</td>
+            <td><%= i + 1 %></td>
+            <td><%= rows[i].NAME %></td>
+            <td><%= rows[i].PASSPROBLEMCOUNT %></td>
+            <td><%= rows[i].SUBMITPROBLEMCOUNT %></td>
+            <td><%= rows[i]. ANSWERRATE %> %</td>
          </tr>
-         <tr>
-           <td>2</td>
-           <td>오새준</td>
-           <td>4</td>
-           <td>10</td>
-           <td>40.0000%</td>
-         </tr>
-         <tr>
-           <td>3</td>
-           <td>김민규</td>
-           <td>1</td>
-           <td>5</td>
-           <td>20.0000%</td>
-         </tr>
+         <% } %>
       </table>
     </div>
 

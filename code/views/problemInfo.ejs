@@ -50,7 +50,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">사용자 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">내 정보 보기</a></li>
-              <li><a href="#">라이벌</a></li>
+              <li><a href="/rival">라이벌</a></li>
               <li><a href="/viewRanking">랭킹</a></li>
             </ul>
           </li>
@@ -68,10 +68,13 @@
       </br>
 
       <div class="col-sm-5" id="comment">
-        <%= rows[0].PROBLEMEXPLAIN %>
-        </br>
-      </br> <strong>예시 입력:</strong> </br><%= rows[0].SAMPLEINPUTTEXT %></br>
-    </br> <strong>예시 출력:</strong> </br><%= rows[0].SAMPLEOUTPUTTEXT %>
+        <div style="white-space: pre-line;"><%= rows[0].PROBLEMEXPLAIN %></div>
+          </br>
+          </br> <strong>예시 입력:</strong> </br>
+          <div style="white-space: pre-line;"><%= rows[0].SAMPLEINPUTTEXT %></div>
+            </br>
+            </br> <strong>예시 출력:</strong> </br>
+            <div style="white-space: pre-line;"><%= rows[0].SAMPLEOUTPUTTEXT %></div>
       </div>
 
       <div class="col-sm-1" id="comment">
@@ -80,7 +83,7 @@
       <form class="form-horizontal" action="/submit/<%= rows[0].PROBLEMID %>" method="post">
         <div class="form-group">
           <div class="col-sm-6">
-            <textarea class="form-control" rows = "13" name="code" spellcheck="false" placeholder="여기에 코드를 입력하세요." style = "font-family: consolas;"></textarea>
+            <textarea class="form-control" rows="13" name="code" spellcheck="false" placeholder="여기에 코드를 입력하세요." style="font-family: consolas;"></textarea>
           </div>
         </div>
 

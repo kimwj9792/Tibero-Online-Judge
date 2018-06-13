@@ -27,7 +27,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">TIBERO </br> Online Judge</a>
+        <a class="navbar-brand" href="/start">TIBERO </br> Online Judge</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -51,7 +51,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">사용자 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">내 정보 보기</a></li>
-              <li><a href="#">라이벌</a></li>
+              <li><a href="/rival">라이벌</a></li>
               <li><a href="/viewRanking">랭킹</a></li>
             </ul>
           </li>
@@ -67,29 +67,29 @@
         대회 만들기
       </h3>
       </br>
-      <form class="form-horizontal">
+      <form class="form-horizontal" action = "/postContest" method = "post">
         <div class="form-group">
           <label for="contestName" class="col-sm-2 control-label">대회 이름</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="contestName" placeholder="대회 이름을 입력해주세요.">
+            <input type="text" class="form-control" id="contestName" name="contestName" placeholder="대회 이름을 입력해주세요.">
           </div>
         </div>
         </br>
         <div class="form-group">
-          <label for="contestContent" class="col-sm-2 control-label">대회 설명</label>
+          <label for="contestExplain" class="col-sm-2 control-label">대회 설명</label>
           <div class="col-sm-10">
-            <textarea class="form-control" rows="3" id="contestContent" placeholder="대회에 대한 설명을 적어주세요."></textarea>
+            <textarea class="form-control" rows="3" id="contestExplain" name="contestExplain" placeholder="대회에 대한 설명을 적어주세요."></textarea>
           </div>
         </div>
         </br>
         <div class="form-group">
           <label for="contestMembers" class="col-sm-2 control-label">대회 참가자</label>
           <div class="col-sm-4" id="the-basics">
-            <textarea class="form-control" rows="5" id="contestMembers" placeholder="대회 참가자들의 닉네임을 줄바꿈문자를 기준으로 적어주세요. (본인 포함)"></textarea>
+            <textarea class="form-control" rows="5" id="contestMembers" name="contestMembers" placeholder="대회 참가자들의 닉네임을 줄바꿈문자를 기준으로 적어주세요. (본인 포함)"></textarea>
           </div>
           <label for="contestProblems" class="col-sm-2 control-label">대회 문제</label>
           <div class="col-sm-4">
-            <textarea class="form-control" rows="5" id="contestProblems" placeholder="대회 문제 번호를 줄바꿈문자를 기준으로 적어주세요."></textarea>
+            <textarea class="form-control" rows="5" id="contestProblems" name="contestProblems" placeholder="대회 문제 번호를 줄바꿈문자를 기준으로 적어주세요."></textarea>
           </div>
         </div>
         </br>
@@ -97,11 +97,11 @@
         <div class="form-group">
           <label for="startTime" class="col-sm-2 control-label">시작 시각</label>
           <div class="col-sm-4">
-            <input type="datetime-local" class="form-control" id="startTime">
+            <input type="datetime-local" class="form-control" id="startTime" name="startTime">
           </div>
           <label for="endTime" class="col-sm-2 control-label">종료 시각</label>
           <div class="col-sm-4">
-            <input type="datetime-local" class="form-control" id="endTime">
+            <input type="datetime-local" class="form-control" id="endTime" name="endTime">
           </div>
         </div>
         </br>

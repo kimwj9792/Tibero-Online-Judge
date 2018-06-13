@@ -18,21 +18,16 @@
 </head>
 
 <body class="text-center">
-  <form class="form-signin">
+  <form class="form-signin" action="/login" method = "post">
     <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">TIBERO Online Judge</h1>
   </br>
-    <label for="inputEmail" class="sr-only">ID</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputPassword" class="sr-only">PW</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <div class="checkbox mb-3">
-      <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
+    <label for="userid" class="sr-only">ID</label>
+    <input type="text" id="userid" name = "userid" class="form-control" placeholder="ID" required autofocus>
+    <label for="userpw" class="sr-only">PW</label>
+    <input type="password" id="userpw" name = "userpw" class="form-control" placeholder="Password" required>
   </br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:#2196f3; border-color:#2196f3;">로그인</button>
   </br></br>
     <p class="mt-5 mb-3 text-muted">&copy; 2018 Database Project</p>
   </form>

@@ -28,7 +28,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">TIBERO </br> Online Judge</a>
+        <a class="navbar-brand" href="/start">TIBERO </br> Online Judge</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -41,7 +41,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>대회</strong> <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">대회 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/makeContest">대회 만들기</a></li>
               <li><a href="/viewContest">대회 참가</a></li>
@@ -74,33 +74,17 @@
             <th>대회 이름</th>
             <th>시작 시각</th>
             <th>종료 시각</th>
-            <th>참가 인원</th>
             <th>개최자</th>
          </thead>
-         <tr class='clickable-row' data-href='https://naver.com'>
-            <td>1</td>
-            <td>우재의 DP 파티</td>
-            <td>2018-06-14 오후 3:00</td>
-            <td>2018-06-14 오후 5:00</td>
-            <td>3</td>
-            <td>김우재</td>
+         <% for(var i=0; i< rows.length; i++){ %>
+         <tr class='clickable-row' data-href='/viewContest/<%= rows[i].CONTESTID %>'>
+            <td><%= i+1 %></td>
+            <td><%= rows[i].TITLE %></td>
+            <td><%= rows[i].GO %></td>
+            <td><%= rows[i].STOP %></td>
+            <td><%= rows[i].CREATERID %></td>
          </tr>
-         <tr>
-           <td>2</td>
-           <td>세준이의 메가버닝</td>
-           <td>2018-06-14 오후 7:00</td>
-           <td>2018-06-22 오후 7:00</td>
-           <td>1</td>
-           <td>오세준</td>
-         </tr>
-         <tr>
-           <td>3</td>
-           <td>민규의 알분 기말고사</td>
-           <td>2018-06-19 오후 1:00</td>
-           <td>2018-06-19 오후 3:00</td>
-           <td>70</td>
-           <td>김민규</td>
-         </tr>
+         <% } %>
       </table>
     </div>
 

@@ -28,7 +28,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">TIBERO </br> Online Judge</a>
+        <a class="navbar-brand" href="/start">TIBERO </br> Online Judge</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -41,18 +41,18 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>대회</strong> <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">대회 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/makeContest">대회 만들기</a></li>
               <li><a href="/viewContest">대회 참가</a></li>
-              <li><a href="/myContest"><strong>참가한 대회</strong></a></li>
+              <li><a href="/myContest">참가한 대회</a></li>
             </ul>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">사용자 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">내 정보 보기</a></li>
-              <li><a href="/rival">라이벌</a></li>
+              <li><a href="/rival"><strong>라이벌</strong></a></li>
               <li><a href="/viewRanking">랭킹</a></li>
             </ul>
           </li>
@@ -63,44 +63,34 @@
 
   <div class="container">
 
-    <div class="jumbotron" align="center">
+    <div class="jumbotron">
       <h3>
-        참가한 대회
+        <div align="center">라이벌</div>
       </h3>
       </br>
+      <p>
+        <li>맞은 문제수, 맞은 문제들의 목록, 정답률을 종합적으로 고려하여 라이벌을 선정합니다.</li>
+      </br><li>라이벌은 Levenshtein Distance Algorithm를 기반으로 계산한 Similarity Ratio를 바탕으로 선정됩니다.</li>
+    </br><li>Levenshtein Distance Algorithm의 자세한 설명을 보고 싶으시면 <a href = "https://en.wikipedia.org/wiki/Levenshtein_distance"><strong>여기</strong></a>를 클릭하세요!</li>
+      </p>
+    </br>
       <table class="table table-hover">
          <thead>
             <th>#</th>
-            <th>대회 이름</th>
-            <th>시작 시각</th>
-            <th>종료 시각</th>
-            <th>참가 인원</th>
-            <th>개최자</th>
+            <th>닉네임</th>
+            <th>정답</th>
+            <th>제출</th>
+            <th>유사도</th>
          </thead>
-         <tr class='clickable-row' data-href='https://naver.com'>
-            <td>1</td>
-            <td>우재의 DP 파티</td>
-            <td>2018-06-14 오후 3:00</td>
-            <td>2018-06-14 오후 5:00</td>
-            <td>3</td>
-            <td>김우재</td>
-         </tr>
+         <% for(var i =0; i< rows.length; i++){  %>
          <tr>
-           <td>2</td>
-           <td>세준이의 메가버닝</td>
-           <td>2018-06-14 오후 7:00</td>
-           <td>2018-06-22 오후 7:00</td>
-           <td>1</td>
-           <td>오세준</td>
+            <td><%= i + 1 %></td>
+            <td><%= rows[i].NAME %></td>
+            <td><%= rows[i].PASSPROBLEMCOUNT %></td>
+            <td><%= rows[i].SUBMITPROBLEMCOUNT %></td>
+            <td><%= rows[i].SIM %> %</td>
          </tr>
-         <tr>
-           <td>3</td>
-           <td>민규의 알분 기말고사</td>
-           <td>2018-06-19 오후 1:00</td>
-           <td>2018-06-19 오후 3:00</td>
-           <td>70</td>
-           <td>김민규</td>
-         </tr>
+         <% } %>
       </table>
     </div>
 

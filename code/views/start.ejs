@@ -50,7 +50,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">사용자 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">내 정보 보기</a></li>
-              <li><a href="#">라이벌</a></li>
+              <li><a href="/rival">라이벌</a></li>
               <li><a href="/viewRanking">랭킹</a></li>
             </ul>
           </li>
@@ -60,10 +60,9 @@
   </nav>
 
   <div class="container">
-
     <div class="jumbotron">
       <h2>
-      오세준 님, </br>TIBERO Online Judge에 오신 것을 환영합니다!
+      <%= sess.username %> 님, </br>TIBERO Online Judge에 오신 것을 환영합니다!
       </h2>
       <p>
         </br>
@@ -72,7 +71,7 @@
         </br>
         <strong>TIBERO Online Judge에 사용된 기술 스택은 아래와 같습니다.</strong>
       </br><li>Web Server : Node.js 8.11.2 LTS</li>
-      </br><li>Web Front-End : HTML 5 / CSS 3 / Javascr ipt</li>
+      </br><li>Web Front-End : HTML 5 / CSS 3 / Javascript</li>
         </br><li>Database : Tibero 6</li>
         </br><li>Judge Server : JDoodle online judge API</li>
       </p>
